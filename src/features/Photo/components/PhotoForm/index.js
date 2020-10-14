@@ -4,8 +4,10 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 
-import Images from '../../../../constaints/images';
-import { PHOTO_CATEGORY_OPTIONS } from '../../../../constaints/global';
+// eslint-disable-next-line import/no-unresolved
+import Images from 'constaints/images';
+// eslint-disable-next-line import/no-unresolved
+import { PHOTO_CATEGORY_OPTIONS } from 'constaints/global';
 
 const PhotoForm = () => (
   <Form>
