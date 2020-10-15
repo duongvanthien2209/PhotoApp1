@@ -10,6 +10,7 @@ import { PHOTO_CATEGORY_OPTIONS } from 'constaints/global';
 
 import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
+import RandomPhotoField from 'custom-fields/RandomPhotoField';
 
 const PhotoForm = () => {
   const initialValues = {
@@ -18,9 +19,14 @@ const PhotoForm = () => {
   };
 
   return (
-    <Formik initialValues={initialValues}>
+    <Formik initialValues={initialValues}
+      onSubmit={ values => console.log(values) }
+    >
       {(formikProps) => {
         // Do something
+        const { values, errors, touched } = formikProps;
+        console.log({ values, errors, touched });
+
         return (
           <Form>
             <FastField // Dùng cho những field độc lâp với các field khác, khi các field khác thay đổi nó ko bị rerender lại
@@ -38,22 +44,11 @@ const PhotoForm = () => {
               options={PHOTO_CATEGORY_OPTIONS}
             />
 
-            <FormGroup>
-              <Label>Photo</Label>
-              <div>
-                <Button type="button" outline color="primary">
-                  Random a photo
-                </Button>
-              </div>
-              <div>
-                <img
-                  width="200px"
-                  height="200px"
-                  src={Images.COLOR_BG}
-                  alt="colorful"
-                />
-              </div>
-            </FormGroup>
+            <FastField
+              name="photo"
+              component={RandomPhotoField}
+              label="Photo"
+            />
 
             <FormGroup>
               <Button color="primary">Add to album</Button>
