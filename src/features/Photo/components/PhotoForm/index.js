@@ -1,10 +1,8 @@
 import React from 'react';
-import { Button, FormGroup, Input, Label } from 'reactstrap';
-import Select from 'react-select';
+import { Button, FormGroup } from 'reactstrap';
 import { FastField, Form, Formik } from 'formik';
+import * as yup from 'yup';
 
-// eslint-disable-next-line import/no-unresolved
-import Images from 'constaints/images';
 // eslint-disable-next-line import/no-unresolved
 import { PHOTO_CATEGORY_OPTIONS } from 'constaints/global';
 
@@ -16,10 +14,18 @@ const PhotoForm = () => {
   const initialValues = {
     title: '',
     categoryId: null,
+    photo: '',
   };
+
+  const validationSchema = yup.object().shape({
+    title: yup.string().required('This field is required'),
+    categoryId: yup.number().required('This field is required').nullable(),
+    photo: yup.string().when('categoryId', { is: 1, then: yup.string().required('This field is required'), otherwise: yup.string().notRequired() }),
+  });
 
   return (
     <Formik initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={ values => console.log(values) }
     >
       {(formikProps) => {

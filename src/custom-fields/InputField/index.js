@@ -1,13 +1,16 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, Input, Label } from 'reactstrap';
+import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
+import { ErrorMessage } from 'formik';
 
 const InputField = (props) => {
   const {
     field, form, type, label, placeholder, disabled
   } = props;
-  const { name, value, onChange, onBlur } = field;
+  const { name } = field; // field: { name, value, onChange, onBlur }
+  const { errors, touched } = form;
+  const showError = errors[name] && touched[name];
 
   return (
     <FormGroup>
@@ -19,7 +22,12 @@ const InputField = (props) => {
         {...field}
         placeholder={placeholder}
         disabled={disabled}
+
+        invalid={showError}
       />
+
+      {/* { showError && <FormFeedback>{errors[name]}</FormFeedback> } */}
+      <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   );
 };
