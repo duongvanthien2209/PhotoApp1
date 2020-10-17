@@ -11,15 +11,18 @@ import Images from 'constaints/images';
 import PhotoForm from 'features/Photo/components/PhotoForm';
 import { useDispatch } from 'react-redux';
 import { addPhoto } from 'features/Photo/photoSlice';
+import { useHistory } from 'react-router-dom';
 
 const AddEditPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = (values) => {
     // console.log('Form submit ->', values);
     const action = addPhoto(values);
-    console.log(action);
+    // console.log(action);
     dispatch(action);
+    history.push('/photos');
   };
 
   return (
