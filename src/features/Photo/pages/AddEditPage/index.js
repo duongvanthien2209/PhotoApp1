@@ -9,15 +9,28 @@ import cls from './style.module.scss';
 // Images
 import Images from 'constaints/images';
 import PhotoForm from 'features/Photo/components/PhotoForm';
+import { useDispatch } from 'react-redux';
+import { addPhoto } from 'features/Photo/photoSlice';
 
-const AddEditPage = () => (
-  <div className={cls['photo-edit']}>
-    <Banner title="Pick your amazing photo" bgUrl={Images.ORANGE_BG} />
+const AddEditPage = () => {
+  const dispatch = useDispatch();
 
-    <div className={cls['photo-edit__form']}>
-      <PhotoForm onSubmit={(value) => console.log(value)} />
+  const handleSubmit = (values) => {
+    // console.log('Form submit ->', values);
+    const action = addPhoto(values);
+    console.log(action);
+    dispatch(action);
+  };
+
+  return (
+    <div className={cls['photo-edit']}>
+      <Banner title="Pick your amazing photo" bgUrl={Images.ORANGE_BG} />
+
+      <div className={cls['photo-edit__form']}>
+        <PhotoForm onSubmit={handleSubmit} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default AddEditPage;

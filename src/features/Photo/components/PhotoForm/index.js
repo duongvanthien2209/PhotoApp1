@@ -10,7 +10,7 @@ import InputField from 'custom-fields/InputField';
 import SelectField from 'custom-fields/SelectField';
 import RandomPhotoField from 'custom-fields/RandomPhotoField';
 
-const PhotoForm = () => {
+const PhotoForm = (props) => {
   const initialValues = {
     title: '',
     categoryId: null,
@@ -26,7 +26,7 @@ const PhotoForm = () => {
   return (
     <Formik initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={ values => console.log(values) }
+      onSubmit={props.onSubmit}
     >
       {(formikProps) => {
         // Do something
