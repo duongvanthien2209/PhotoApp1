@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup } from 'reactstrap';
+import { Button, FormGroup, Spinner } from 'reactstrap';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -30,7 +30,7 @@ const PhotoForm = (props) => {
     >
       {(formikProps) => {
         // Do something
-        const { values, errors, touched } = formikProps;
+        const { values, errors, touched, isSubmitting } = formikProps;
         console.log({ values, errors, touched });
 
         return (
@@ -57,7 +57,10 @@ const PhotoForm = (props) => {
             />
 
             <FormGroup>
-              <Button color="primary">Add to album</Button>
+              <Button color="primary">
+                { isSubmitting && <Spinner size="sm" /> }
+                Add to album
+                </Button>
             </FormGroup>
           </Form>
         );

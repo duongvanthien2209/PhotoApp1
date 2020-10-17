@@ -18,11 +18,16 @@ const AddEditPage = () => {
   const history = useHistory();
 
   const handleSubmit = (values) => {
-    // console.log('Form submit ->', values);
-    const action = addPhoto(values);
-    // console.log(action);
-    dispatch(action);
-    history.push('/photos');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // console.log('Form submit ->', values);
+        const action = addPhoto(values);
+        // console.log(action);
+        dispatch(action);
+        history.push('/photos');
+        resolve(true);
+      }, 2000);
+    });
   };
 
   return (
