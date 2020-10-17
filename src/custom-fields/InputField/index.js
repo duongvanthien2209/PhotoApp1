@@ -11,7 +11,7 @@ const InputField = (props) => {
   const { name } = field; // field: { name, value, onChange, onBlur }
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
-
+  
   return (
     <FormGroup>
       {label && <Label for={name}>{label}</Label>}
@@ -31,7 +31,7 @@ const InputField = (props) => {
     </FormGroup>
   );
 };
-
+// Đ
 InputField.propTypes = {
   // Custom field phải có field và form
   field: PropTypes.object.isRequired,
