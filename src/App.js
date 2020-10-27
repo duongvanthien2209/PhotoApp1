@@ -20,17 +20,6 @@ function App() {
   return (
     <div className="photo-app">
       <Router>
-        {/* <ul>
-          <li>
-            <Link to="/photos">Go to photo page</Link>
-          </li>
-          <li>
-            <Link to="/photos/add">Go to Add new photo page</Link>
-          </li>
-          <li>
-            <Link to="/photos/123">Go to Edit photo page</Link>
-          </li>
-        </ul> */}
         <Header />
 
         <Switch>

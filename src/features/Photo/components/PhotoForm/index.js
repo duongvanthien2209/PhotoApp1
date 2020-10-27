@@ -11,11 +11,7 @@ import SelectField from 'custom-fields/SelectField';
 import RandomPhotoField from 'custom-fields/RandomPhotoField';
 
 const PhotoForm = (props) => {
-  const initialValues = {
-    title: '',
-    categoryId: null,
-    photo: '',
-  };
+  const { initialValues, onSubmit, isAddMode } = props;
 
   const validationSchema = yup.object().shape({
     title: yup.string().required('This field is required'),
@@ -24,14 +20,15 @@ const PhotoForm = (props) => {
   });
 
   return (
-    <Formik initialValues={initialValues}
+    <Formik
+      initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     >
       {(formikProps) => {
         // Do something
         const { values, errors, touched, isSubmitting } = formikProps;
-        console.log({ values, errors, touched });
+        // console.log({ values, errors, touched });
 
         return (
           <Form>
@@ -57,9 +54,9 @@ const PhotoForm = (props) => {
             />
 
             <FormGroup>
-              <Button color="primary">
+              <Button color={ isAddMode ? 'primary' : 'success' }>
                 { isSubmitting && <Spinner size="sm" /> }
-                Add to album
+                { isAddMode ? 'Add to album' : 'Update photo' }
                 </Button>
             </FormGroup>
           </Form>

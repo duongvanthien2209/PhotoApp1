@@ -9,21 +9,42 @@ import cls from './style.module.scss';
 // Images
 import Images from 'constaints/images';
 import PhotoForm from 'features/Photo/components/PhotoForm';
-import { useDispatch } from 'react-redux';
-import { addPhoto } from 'features/Photo/photoSlice';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPhoto, updatePhoto } from 'features/Photo/photoSlice';
+import { useHistory, useParams } from 'react-router-dom';
 
-const AddEditPage = () => {
+const AddEditPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { photoId } = useParams(); // Lấy ra params của router
+  const isAddMode = !photoId;
+  const editPhoto = useSelector((state) => {
+    // console.log({ photoFind: state.photos, photoId });
+    return state.photos.find((item) => item.id === parseInt(photoId));
+  });
+
+  const initialValues = isAddMode
+    ? {
+        title: '',
+        categoryId: null,
+        photo: '',
+      }
+    : editPhoto;
 
   const handleSubmit = (values) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // console.log('Form submit ->', values);
-        const action = addPhoto(values);
-        // console.log(action);
-        dispatch(action);
+        if (isAddMode) {
+          const newPhoto = {
+            ...values,
+            id: Math.random(10000, 99999),
+          };
+          const action = addPhoto(newPhoto);
+          dispatch(action);
+        } else {
+          const action = updatePhoto(values);
+          dispatch(action);
+        }
         history.push('/photos');
         resolve(true);
       }, 2000);
@@ -35,7 +56,11 @@ const AddEditPage = () => {
       <Banner title="Pick your amazing photo" bgUrl={Images.ORANGE_BG} />
 
       <div className={cls['photo-edit__form']}>
-        <PhotoForm onSubmit={handleSubmit} />
+        <PhotoForm
+          isAddMode={isAddMode}
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+        />
       </div>
     </div>
   );

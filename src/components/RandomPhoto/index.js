@@ -37,7 +37,15 @@ const RandomPhoto = (props) => {
       </div>
 
       <div className={cls['random-photo__photo']}>
-        { imageUrl && <img src={imageUrl} alt="Ooops ... not found" /> }
+        {
+          imageUrl
+          &&
+          <img
+            src={imageUrl}
+            alt="Ooops ... not found"
+            onError={evt => evt.target.src = getRandomImageUrl()}
+          />
+        }
       </div>
     </div>
   );
